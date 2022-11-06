@@ -50,7 +50,7 @@ public class ManejadorArchivos {
         FileOutputStream fichero = null;
         try {
             if(!superUser)
-                fichero = new FileOutputStream("archivos/" + user + "/juego.txt",false);
+                fichero = new FileOutputStream("archivos/" + user + "/juego.txt");
            
             else{
                 fichero = new FileOutputStream("archivos/administrativo/"+nombre,false);
