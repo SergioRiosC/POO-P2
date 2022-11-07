@@ -14,7 +14,7 @@ public class visual extends javax.swing.JFrame {
     int tam = 27;
     int inicio = 10;
     
-    ArrayList<JButton> botones = new ArrayList<>();
+    static ArrayList<JButton> botones = new ArrayList<>();
 
     /**
      * Creates new form visual
@@ -33,6 +33,10 @@ public class visual extends javax.swing.JFrame {
         for(JButton i : botones){
             i.setEnabled(estado);
         }
+    }
+
+    public static ArrayList<JButton> getBotones() {
+        return botones;
     }
     
     private void generarMatrix(){

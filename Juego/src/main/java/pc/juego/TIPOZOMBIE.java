@@ -4,6 +4,9 @@
  */
 package pc.juego;
 
+import java.util.ArrayList;
+import javax.swing.JButton;
+import pc.juego.visual;
 /**
  *
  * @author Sergio RC
@@ -15,9 +18,12 @@ public enum TIPOZOMBIE{
     MEDIO_ALCANCE
 }
 
-abstract class Zombie{
+abstract class Zombie extends Thread{
     String nombre;
     String imagen;
+    ArrayList<JButton> botones = visual.getBotones();
+    int posX;
+    int posY;
     int vida;
     int ataquePorSegundo;
     int nivel;
@@ -42,7 +48,7 @@ class ZombieContacto extends Zombie{
 
     @Override
     public void mover() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+         
     }
     
 }
