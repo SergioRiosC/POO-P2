@@ -4,6 +4,7 @@
  */
 package pc.juego;
 import javax.swing.JButton;
+import java.util.ArrayList;
 
 /**
  *
@@ -12,6 +13,8 @@ import javax.swing.JButton;
 public class visual extends javax.swing.JFrame {
     int tam = 27;
     int inicio = 10;
+    
+    ArrayList<JButton> botones = new ArrayList<>();
 
     /**
      * Creates new form visual
@@ -26,6 +29,12 @@ public class visual extends javax.swing.JFrame {
         System.out.println(name);
     }
     
+    private void cambiarEstadoBotones(boolean estado){
+        for(JButton i : botones){
+            i.setEnabled(estado);
+        }
+    }
+    
     private void generarMatrix(){
         int posX = inicio, posY = inicio;
         
@@ -37,7 +46,9 @@ public class visual extends javax.swing.JFrame {
                 but.setLocation(posX, posY);
                 String name = Integer.toString(i) + "-" + Integer.toString(j);
                 but.setName(name);
+                but.setEnabled(false);
                 but.addActionListener(e -> accionButton(name));
+                botones.add(but);
                 posX += tam;
             }
             posY += tam;
