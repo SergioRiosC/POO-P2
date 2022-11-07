@@ -18,6 +18,8 @@ public class Juego implements Serializable {
     static ArrayList<Arma[]> ejercitoArma = new ArrayList<Arma[]>();
     static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
     ManejadorArchivos MA = new ManejadorArchivos();
+    
+    /*
 
     public static void main(String[] args) {
 
@@ -42,6 +44,7 @@ public class Juego implements Serializable {
         init();
 
     }
+*/
 
     public static void init() {
 
