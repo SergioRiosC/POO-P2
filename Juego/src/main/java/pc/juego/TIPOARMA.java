@@ -22,6 +22,8 @@ public enum TIPOARMA{
     public String nombre;
     public String imagen;
     public int vida;
+    int posX;
+    int posY;
     int ataquePorSegundo;
     public int nivel;
     public int campos;

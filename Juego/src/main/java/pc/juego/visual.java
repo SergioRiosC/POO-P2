@@ -81,6 +81,17 @@ public class visual extends javax.swing.JFrame {
         pantallas.setSelectedIndex(1);
         generarMatrix();
         crearMatriz();
+        
+        for(int i=0;i<2;i++){
+            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO);
+            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
+            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE);
+            z.start();
+            z1.start();
+            z2.start();
+        }
+        
+        
     }
 
     /**
