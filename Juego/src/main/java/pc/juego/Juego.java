@@ -21,6 +21,10 @@ public class Juego extends javax.swing.JFrame {
     JButton ultimoModificado = null;
     ImageIcon puntero = new ImageIcon("imagenes/botones/puntero.png");
     ImageIcon muro = new ImageIcon("imagenes/botones/muro.jpeg");
+    ImageIcon contacto = new ImageIcon("imagenes/botones/soldado.png");
+    ImageIcon mediano = new ImageIcon("imagenes/botones/mediano.png");
+    ImageIcon avion = new ImageIcon("imagenes/botones/avion.png");
+    ImageIcon iron = new ImageIcon("imagenes/botones/multiple.png");
     
     
     private void cambiarEstadoMatriz(int x, int y, int estado){
@@ -39,8 +43,21 @@ public class Juego extends javax.swing.JFrame {
                 color = Color.gray;
                 break;
                 
-            case 2:
+            case 2://contacto
+                color = Color.getHSBColor(170, 139, 90);
+                break;
                 
+            case 3://mediano alcance
+                color = Color.orange;
+                break;
+                
+            case 4: //aereo
+                color = Color.blue;
+                break;
+                
+            case 5: //multiple
+                color = Color.getHSBColor(135, 76, 98);
+                break;
         }
         String[] lista = boton.getName().split("-");
         cambiarEstadoMatriz(Integer.valueOf(lista[0]), Integer.valueOf(lista[1]), tipo);
@@ -104,7 +121,11 @@ public class Juego extends javax.swing.JFrame {
         ultimoModificado = jButton1;
         jButton1.setBackground(Color.green);
         jButton1.setIcon(puntero);
-        jButton2.setIcon(muro);
+        malla.setIcon(muro);
+        cont.setIcon(contacto);
+        med.setIcon(mediano);
+        aereo.setIcon(avion);
+        multiple.setIcon(iron);
         
         /*
         
@@ -137,8 +158,12 @@ public class Juego extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         principal = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        malla = new javax.swing.JButton();
         iniciar = new javax.swing.JButton();
+        multiple = new javax.swing.JButton();
+        cont = new javax.swing.JButton();
+        med = new javax.swing.JButton();
+        aereo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -190,9 +215,9 @@ public class Juego extends javax.swing.JFrame {
             }
         });
 
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        malla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                mallaActionPerformed(evt);
             }
         });
 
@@ -203,29 +228,64 @@ public class Juego extends javax.swing.JFrame {
             }
         });
 
+        multiple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                multipleActionPerformed(evt);
+            }
+        });
+
+        cont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contActionPerformed(evt);
+            }
+        });
+
+        med.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                medActionPerformed(evt);
+            }
+        });
+
+        aereo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aereoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
         principal.setLayout(principalLayout);
         principalLayout.setHorizontalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
-                .addContainerGap(780, Short.MAX_VALUE)
+                .addContainerGap(764, Short.MAX_VALUE)
                 .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                        .addComponent(iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(34, 34, 34))
+                    .addComponent(aereo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(multiple, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(malla, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cont, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(med, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
         principalLayout.setVerticalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(principalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
                 .addComponent(iniciar)
-                .addContainerGap(435, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(malla, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cont, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(med, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(aereo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(multiple, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         pantallas.addTab("tab2", principal);
@@ -246,15 +306,39 @@ public class Juego extends javax.swing.JFrame {
         modificarUltimoCambiado(jButton1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void mallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mallaActionPerformed
         // TODO add your handling code here:
         tipo = 1;
-        modificarUltimoCambiado(jButton2);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        modificarUltimoCambiado(malla);
+    }//GEN-LAST:event_mallaActionPerformed
 
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_iniciarActionPerformed
+
+    private void multipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multipleActionPerformed
+        // TODO add your handling code here:
+        tipo = 2;
+        modificarUltimoCambiado(multiple);
+    }//GEN-LAST:event_multipleActionPerformed
+
+    private void contActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contActionPerformed
+        // TODO add your handling code here:
+        tipo = 2;
+        modificarUltimoCambiado(cont);
+    }//GEN-LAST:event_contActionPerformed
+
+    private void medActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medActionPerformed
+        // TODO add your handling code here:
+        tipo = 3;
+        modificarUltimoCambiado(med);
+    }//GEN-LAST:event_medActionPerformed
+
+    private void aereoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aereoActionPerformed
+        // TODO add your handling code here:
+        tipo = 4;
+        modificarUltimoCambiado(aereo);
+    }//GEN-LAST:event_aereoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,13 +377,17 @@ public class Juego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aereo;
+    private javax.swing.JButton cont;
     private javax.swing.JButton iniciar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton malla;
+    private javax.swing.JButton med;
+    private javax.swing.JButton multiple;
     private javax.swing.JTabbedPane pantallas;
     public javax.swing.JPanel principal;
     // End of variables declaration//GEN-END:variables
