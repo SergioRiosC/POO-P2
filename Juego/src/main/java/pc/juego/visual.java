@@ -14,19 +14,23 @@ public class visual extends javax.swing.JFrame {
     int tam = 27;
     int inicio = 10;
     
+    int tipo = 0;
+    
     static ArrayList<JButton> botones = new ArrayList<>();
+    
+    ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
 
-    /**
-     * Creates new form visual
-     */
-    public visual() {
-        initComponents();
-        pantallas.setSelectedIndex(1);
-        generarMatrix();
-    }
     
     private void accionButton(String name){
-        System.out.println(name);
+        switch(tipo){
+            case 0: //caso donde nada pasa
+                System.out.println("0");
+                break;
+                
+            case 1: //caso del bloque
+                System.out.println("1");
+                break;
+        }
     }
     
     private void cambiarEstadoBotones(boolean estado){
@@ -50,7 +54,6 @@ public class visual extends javax.swing.JFrame {
                 but.setLocation(posX, posY);
                 String name = Integer.toString(i) + "-" + Integer.toString(j);
                 but.setName(name);
-                but.setEnabled(false);
                 but.addActionListener(e -> accionButton(name));
                 botones.add(but);
                 posX += tam;
@@ -58,6 +61,26 @@ public class visual extends javax.swing.JFrame {
             posY += tam;
             posX = inicio;
         }      
+    }
+    
+    private void crearMatriz(){
+        for(int i =0; i < 25; i++){
+            ArrayList<Integer> a = new ArrayList<>();
+            for(int j =0; j < 25; j++){
+                a.add(0);
+            }
+            matriz.add(a);
+        }
+    }
+    
+    /**
+     * Creates new form visual
+     */
+    public visual() {
+        initComponents();
+        pantallas.setSelectedIndex(1);
+        generarMatrix();
+        crearMatriz();
     }
 
     /**
@@ -75,6 +98,8 @@ public class visual extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         principal = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -120,15 +145,45 @@ public class visual extends javax.swing.JFrame {
 
         pantallas.addTab("tab1", jPanel1);
 
+        jButton1.setText("0");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Malla");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
         principal.setLayout(principalLayout);
         principalLayout.setHorizontalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                .addContainerGap(780, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+            .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                    .addContainerGap(781, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(33, 33, 33)))
         );
         principalLayout.setVerticalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGroup(principalLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(661, Short.MAX_VALUE))
+            .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(principalLayout.createSequentialGroup()
+                    .addGap(143, 143, 143)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(540, Short.MAX_VALUE)))
         );
 
         pantallas.addTab("tab2", principal);
@@ -142,6 +197,16 @@ public class visual extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        tipo = 0;
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        tipo = 1;
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +244,8 @@ public class visual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
