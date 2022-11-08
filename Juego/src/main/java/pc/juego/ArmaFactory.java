@@ -3,14 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pc.juego;
-import pc.juego.Juego;
+import pc.juego.Manager;
 /**
  *
  * @author Sergio RC
  */
 public class ArmaFactory {
 
-    static Arma[] armasNivel = new Arma[Juego.campoEjercitos];
+    static Arma[] armasNivel = new Arma[Manager.campoEjercitos];
     
     public static Arma getNewArma(TIPOARMA tipo) {
 
@@ -172,7 +172,7 @@ public class ArmaFactory {
     }
 
     public static int campoEjercitos() {
-        int campos = Juego.campoEjercitos;
+        int campos = Manager.campoEjercitos;
         for (int i = 0; i < armasNivel.length; i++) {
             if (armasNivel[i] != null) {
                 campos = campos - armasNivel[i].campos;

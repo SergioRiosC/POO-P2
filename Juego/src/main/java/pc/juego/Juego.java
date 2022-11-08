@@ -1,74 +1,306 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package pc.juego;
-
-import java.io.Serializable;
+import javax.swing.JButton;
 import java.util.ArrayList;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 /**
  *
- * @author Sergio RC
+ * @author sebastianqr.2208
  */
-public class Juego implements Serializable {
-
-    static int nivel = 1;
-    static int campoEjercitos = 20;
-    static ArrayList<Arma[]> ejercitoArma = new ArrayList<Arma[]>();
-    static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
-    static ArrayList<int[]> posiciones =new ArrayList<int[]>();
-    ManejadorArchivos MA = new ManejadorArchivos();
+public class Juego extends javax.swing.JFrame {
+    int tam = 27;
+    int inicio = 10;
+    int tipo = 0;
+    static ArrayList<JButton> botones = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
+    JButton ultimoModificado = null;
+    ImageIcon puntero = new ImageIcon("imagenes/botones/puntero.png");
+    ImageIcon muro = new ImageIcon("imagenes/botones/muro.jpeg");
     
-    /*
+    
+    private void cambiarEstadoMatriz(int x, int y, int estado){
+        ArrayList<Integer> lista = matriz.get(x);
+        lista.set(y, estado);
+    }
+    
+    private void accionButton(JButton boton){
+        Color color = null;
+        switch(tipo){
+            case 0: //caso donde nada pasa
+                color = null;
+                break;
+                
+            case 1: //caso del bloque
+                color = Color.gray;
+                break;
+                
+            case 2:
+                
+        }
+        String[] lista = boton.getName().split("-");
+        cambiarEstadoMatriz(Integer.valueOf(lista[0]), Integer.valueOf(lista[1]), tipo);
+        boton.setBackground(color);
+    }
+    
+    private void cambiarEstadoBotones(boolean estado){
+        for(JButton i : botones){
+            i.setEnabled(estado);
+        }
+    }
 
-    public static void main(String[] args) {
-
-        for (int i = 0; i < 25; i++) {
-
-            Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
-            if (z != null) {
-                z.nombre = "Zombie " + i;
+    public static ArrayList<JButton> getBotones() {
+        return botones;
+    }
+    
+    private void generarMatrix(){
+        int posX = inicio, posY = inicio;
+        
+        for(int i =0; i < 25; i++){
+            for(int j = 0; j<25; j++){
+                JButton but = new JButton("");
+                principal.add(but);
+                but.setSize(tam, tam);
+                but.setLocation(posX, posY);
+                String name = Integer.toString(i) + "-" + Integer.toString(j);
+                but.setName(name);
+                but.addActionListener(e -> accionButton(but));
+                botones.add(but);
+                posX += tam;
             }
-
-            System.out.println(i + " ZOMBIE: " + z);
-        }
-        for (int i = 0; i < 25; i++) {
-
-            Arma a = ArmaFactory.getNewArma(TIPOARMA.AEREO);
-            if (a != null) {
-                a.nombre = "Arma " + i;
+            posY += tam;
+            posX = inicio;
+        }      
+    }
+    
+    private void crearMatriz(){
+        for(int i =0; i < 25; i++){
+            ArrayList<Integer> a = new ArrayList<>();
+            for(int j =0; j < 25; j++){
+                a.add(0);
             }
-
-            System.out.println(i + " ARMA: " + a);
-        }
-        init();
-
-    }
-*/
-
-    public static void init() {
-
-        for (int i = 1; i < nivel; i++) {
-            campoEjercitos += 5;
-        }
-        ejercitoArma.add(ArmaFactory.armasNivel);
-        ejercitoZombie.add(ZombieFactory.zombiesNivel);
-    }
-
-    public void guardarJuego() {
-        Juego j = new Juego();
-        j.nivel = nivel;
-        j.campoEjercitos = campoEjercitos;
-        j.ejercitoArma = ejercitoArma;
-        j.ejercitoZombie = ejercitoZombie;
-
-        String username = "sergio";
-
-        if (MA.crear_carpeta("archivos/" + username) == 0) {
-            MA.asignarJuego(j, username, "NOMBRE", "PASS");
-        } else {
-            MA.guardarJuego(j, username, false, username);
+            matriz.add(a);
         }
     }
+    
+    private void modificarUltimoCambiado(JButton boton){
+        ultimoModificado.setBackground(null);
+        boton.setBackground(Color.green);
+        ultimoModificado = boton;
+    }
+    
+    /**
+     * Creates new form visual
+     */
+    public Juego() {
+        initComponents();
+        pantallas.setSelectedIndex(1);
+        generarMatrix();
+        crearMatriz();
+        ultimoModificado = jButton1;
+        jButton1.setBackground(Color.green);
+        jButton1.setIcon(puntero);
+        jButton2.setIcon(muro);
+        
+        /*
+        
+        for(int i=0;i<2;i++){
+            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO);
+            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
+            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE);
+            z.start();
+            z1.start();
+            z2.start();
+        }
+        */
+        
+        
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pantallas = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        principal = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        iniciar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jTextField1.setText("jTextField1");
+
+        jTextField2.setText("jTextField1");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        jLabel1.setText("Login");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(391, 391, 391)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1)
+                .addGap(88, 88, 88)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(565, Short.MAX_VALUE))
+        );
+
+        pantallas.addTab("tab1", jPanel1);
+
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        iniciar.setText("Iniciar");
+        iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal);
+        principal.setLayout(principalLayout);
+        principalLayout.setHorizontalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                .addContainerGap(780, Short.MAX_VALUE)
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                        .addComponent(iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(34, 34, 34))
+        );
+        principalLayout.setVerticalGroup(
+            principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(principalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104)
+                .addComponent(iniciar)
+                .addContainerGap(435, Short.MAX_VALUE))
+        );
+
+        pantallas.addTab("tab2", principal);
+
+        getContentPane().add(pantallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 800));
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        tipo = 0;
+        modificarUltimoCambiado(jButton1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        tipo = 1;
+        modificarUltimoCambiado(jButton2);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_iniciarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Juego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Juego().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton iniciar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTabbedPane pantallas;
+    public javax.swing.JPanel principal;
+    // End of variables declaration//GEN-END:variables
 }

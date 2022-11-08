@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
-import pc.juego.visual;
+import pc.juego.Juego;
 
 /**
  *
@@ -28,7 +28,7 @@ abstract class Zombie extends Thread {
     String nombre;
     String imagen;
     Boolean alive = true;
-    ArrayList<JButton> botones = visual.getBotones();
+    ArrayList<JButton> botones = Juego.getBotones();
     int posX;
     int posY;
     int[] pos = new int[2];
@@ -76,7 +76,7 @@ class ZombieContacto extends Zombie {
         //System.out.println("MOVER");
 
         buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
         }
         System.out.println("");
         int[] act = new int[2];
@@ -100,7 +100,7 @@ class ZombieContacto extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -112,11 +112,11 @@ class ZombieContacto extends Zombie {
         }
         if (!ocupada) {
 
-            Juego.posiciones.add(nuevo);
+            Manager.posiciones.add(nuevo);
             int remove = 0;
-            for (int[] p : Juego.posiciones) {
+            for (int[] p : Manager.posiciones) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Juego.posiciones.remove(remove);
+                    Manager.posiciones.remove(remove);
                     break;
                 }
                 remove++;
@@ -130,7 +130,7 @@ class ZombieContacto extends Zombie {
 
     @Override
     public void run() {
-        ArrayList<JButton> botones = visual.getBotones();
+        ArrayList<JButton> botones = Juego.getBotones();
         while (alive) {
 
             try {
@@ -182,7 +182,7 @@ class ZombieAereo extends Zombie {
     @Override
     public void mover() {
         buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
         }
         System.out.println("");
         int[] act = new int[2];
@@ -206,7 +206,7 @@ class ZombieAereo extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -218,11 +218,11 @@ class ZombieAereo extends Zombie {
         }
         if (!ocupada) {
 
-            Juego.posiciones.add(nuevo);
+            Manager.posiciones.add(nuevo);
             int remove = 0;
-            for (int[] p : Juego.posiciones) {
+            for (int[] p : Manager.posiciones) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Juego.posiciones.remove(remove);
+                    Manager.posiciones.remove(remove);
                     break;
                 }
                 remove++;
@@ -235,7 +235,7 @@ class ZombieAereo extends Zombie {
     
     @Override
     public void run() {
-        ArrayList<JButton> botones = visual.getBotones();
+        ArrayList<JButton> botones = Juego.getBotones();
         while (alive) {
 
             try {
@@ -317,7 +317,7 @@ class ZombieMedioAlcance extends Zombie {
     @Override
     public void mover() {
         buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
             
         }
         System.out.println("");
@@ -342,7 +342,7 @@ class ZombieMedioAlcance extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Juego.posiciones) {
+        for (int[] p : Manager.posiciones) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -353,11 +353,11 @@ class ZombieMedioAlcance extends Zombie {
             }
         }
         if (!ocupada) {
-            Juego.posiciones.add(nuevo);
+            Manager.posiciones.add(nuevo);
             int remove = 0;
-            for (int[] p : Juego.posiciones) {
+            for (int[] p : Manager.posiciones) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Juego.posiciones.remove(remove);
+                    Manager.posiciones.remove(remove);
                     break;
                 }
                 remove++;
@@ -371,7 +371,7 @@ class ZombieMedioAlcance extends Zombie {
     
     @Override
     public void run() {
-        ArrayList<JButton> botones = visual.getBotones();
+        ArrayList<JButton> botones = Juego.getBotones();
         while (alive) {
 
             try {

@@ -4,7 +4,7 @@
  */
 package pc.juego;
 
-import pc.juego.Juego;
+import pc.juego.Manager;
 
 /**
  *
@@ -12,7 +12,7 @@ import pc.juego.Juego;
  */
 public class ZombieFactory {
 
-    static Zombie[] zombiesNivel = new Zombie[Juego.campoEjercitos];
+    static Zombie[] zombiesNivel = new Zombie[Manager.campoEjercitos];
 
     public static Zombie getNewZombie(TIPOZOMBIE tipo) {
 
@@ -166,7 +166,7 @@ public class ZombieFactory {
     }
 
     public static int campoEjercitos() {
-        int campos = Juego.campoEjercitos;
+        int campos = Manager.campoEjercitos;
         for (int i = 0; i < zombiesNivel.length; i++) {
             if (zombiesNivel[i] != null) {
                 campos = campos - zombiesNivel[i].campos;

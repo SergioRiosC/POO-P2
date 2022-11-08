@@ -21,8 +21,8 @@ import java.util.Scanner;
  */
 public class ManejadorArchivos {
     
-    public Juego buscarJuego(String user, boolean superUser){
-        Juego j=null;
+    public Manager buscarJuego(String user, boolean superUser){
+        Manager j=null;
         FileInputStream ficheroEntrada=null;
         
         try{
@@ -33,7 +33,7 @@ public class ManejadorArchivos {
                 ficheroEntrada= new FileInputStream("archivos/administrativo/juegos.txt");
             }
             ObjectInputStream tuberiaEntrada = new ObjectInputStream(ficheroEntrada);
-            j=(Juego)tuberiaEntrada.readObject();
+            j=(Manager)tuberiaEntrada.readObject();
         }catch(FileNotFoundException ex){
             ex.printStackTrace();
         }catch(IOException ex){
@@ -44,7 +44,7 @@ public class ManejadorArchivos {
         return j;
     }
     
-    public void guardarJuego(Juego juego, String user, boolean superUser,String nombre){
+    public void guardarJuego(Manager juego, String user, boolean superUser,String nombre){
         
         
         FileOutputStream fichero = null;
@@ -72,7 +72,7 @@ public class ManejadorArchivos {
         }
     }
     
-    public void asignarJuego(Juego juego, String username, String nombre, String password) {
+    public void asignarJuego(Manager juego, String username, String nombre, String password) {
         //juego.crearUsuario(username, nombre, password);
         
         FileOutputStream fichero = null;
