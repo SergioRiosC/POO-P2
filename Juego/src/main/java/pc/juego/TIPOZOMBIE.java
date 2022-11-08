@@ -38,7 +38,7 @@ abstract class Zombie extends Thread {
     int campos;
     int nivelAparicion;
 
-    public abstract void atacar();
+    public abstract void atacar(int posX, int posY);
 
     public abstract void morir();
 
@@ -52,13 +52,30 @@ class ZombieContacto extends Zombie {
     int vida = 100;
     int posX = (int) (Math.random() * 23);
     int posY = (int) (Math.random() * 23);
+    int[] nuevo = new int[2];
 
     @Override
-    public void atacar() {
-        //System.out.println("ATACAR");
-        /*if(buscarBoton(posX-1, posY-1)."getElemento"){
-            elemento.vida=elemento.vida-X daño
-        }*/
+    public void atacar(int posX, int posY) {
+        System.out.println("ATACAR");
+        int c=0;
+        for (Arma arma : ArmaFactory.armasNivel) {
+            
+            if(arma!=null && arma.posX==posX && arma.posY==posY){
+                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
+                arma.vida=arma.vida-10;
+                if (arma.vida <= 0) {
+                    System.out.println("MUERTOOOO");
+                    for (int[] p : Manager.posicionesArma) {
+                        if (p[0] == posX && p[1] == posY) {
+                            Manager.posicionesArma.remove(p);
+                            break;
+                        }
+                    }
+                    ArmaFactory.armasNivel[c] = null;
+                }
+            }
+            c++;
+        }
     }
 
     @Override
@@ -74,11 +91,11 @@ class ZombieContacto extends Zombie {
     @Override
     public void mover() {
         //System.out.println("MOVER");
+        buscarBoton(posX, posY).setBackground(null);
+        buscarBoton(posX, posY).setText(null);
+        
 
-        buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Manager.posiciones) {
-        }
-        System.out.println("");
+        
         int[] act = new int[2];
         act[0] = posX;
         act[1] = posY;
@@ -100,7 +117,7 @@ class ZombieContacto extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Manager.posiciones) {
+        for (int[] p : Manager.posicionesZombie) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -110,13 +127,24 @@ class ZombieContacto extends Zombie {
                 break;
             }
         }
+        for (int[] p : Manager.posicionesArma) {
+            if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
+                posX = act[0];
+                pos[0] = act[0];
+                posY = act[1];
+                pos[1] = act[1];
+                ocupada = true;
+                atacar(nuevo[0],nuevo[1]);
+                break;
+            }
+        }
         if (!ocupada) {
 
-            Manager.posiciones.add(nuevo);
+            Manager.posicionesZombie.add(nuevo);
             int remove = 0;
-            for (int[] p : Manager.posiciones) {
+            for (int[] p : Manager.posicionesZombie) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Manager.posiciones.remove(remove);
+                    Manager.posicionesZombie.remove(remove);
                     break;
                 }
                 remove++;
@@ -124,19 +152,20 @@ class ZombieContacto extends Zombie {
         }
 
         buscarBoton(posX, posY).setBackground(Color.red);
+        buscarBoton(posX, posY).setText("Z");
         buscarBoton(posX, posY).setEnabled(true);
 
     }
 
     @Override
     public void run() {
-        ArrayList<JButton> botones = Juego.getBotones();
+        Manager.posicionesZombie.clear();
         while (alive) {
 
             try {
                 morir();
                 mover();
-                atacar();
+                //atacar();
                 sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,8 +195,27 @@ class ZombieAereo extends Zombie {
     int posY = (int) (Math.random() * 23);
 
     @Override
-    public void atacar() {
-        
+    public void atacar(int posX, int posY) {
+        System.out.println("ATACAR");
+        int c=0;
+        for (Arma arma : ArmaFactory.armasNivel) {
+            
+            if(arma!=null && arma.posX==posX && arma.posY==posY){
+                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
+                arma.vida=arma.vida-10;
+                if (arma.vida <= 0) {
+                    System.out.println("MUERTOOOO");
+                    for (int[] p : Manager.posicionesArma) {
+                        if (p[0] == posX && p[1] == posY) {
+                            Manager.posicionesArma.remove(p);
+                            break;
+                        }
+                    }
+                    ArmaFactory.armasNivel[c] = null;
+                }
+            }
+            c++;
+        }
     }
 
     @Override
@@ -181,10 +229,8 @@ class ZombieAereo extends Zombie {
 
     @Override
     public void mover() {
-        buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Manager.posiciones) {
-        }
-        System.out.println("");
+        buscarBoton(posX, posY).setBackground(null);
+        buscarBoton(posX, posY).setText(null);
         int[] act = new int[2];
         act[0] = posX;
         act[1] = posY;
@@ -206,7 +252,7 @@ class ZombieAereo extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Manager.posiciones) {
+        for (int[] p : Manager.posicionesZombie) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -216,13 +262,25 @@ class ZombieAereo extends Zombie {
                 break;
             }
         }
+        for (int[] p : Manager.posicionesArma) {
+            if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
+                posX = act[0];
+                pos[0] = act[0];
+                posY = act[1];
+                pos[1] = act[1];
+                ocupada = true;
+                atacar(nuevo[0],nuevo[1]);
+                break;
+            }
+        }
+        
         if (!ocupada) {
 
-            Manager.posiciones.add(nuevo);
+            Manager.posicionesZombie.add(nuevo);
             int remove = 0;
-            for (int[] p : Manager.posiciones) {
+            for (int[] p : Manager.posicionesZombie) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Manager.posiciones.remove(remove);
+                    Manager.posicionesZombie.remove(remove);
                     break;
                 }
                 remove++;
@@ -230,6 +288,7 @@ class ZombieAereo extends Zombie {
         }
 
         buscarBoton(posX, posY).setBackground(Color.blue);
+        buscarBoton(posX, posY).setText("Z");
         buscarBoton(posX, posY).setEnabled(true);
     }
     
@@ -241,7 +300,7 @@ class ZombieAereo extends Zombie {
             try {
                 morir();
                 mover();
-                atacar();
+                //atacar();
                 sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);
@@ -273,8 +332,27 @@ class ZombieChoque extends Zombie {
     int posY = (int) (Math.random() * 23);
 
     @Override
-    public void atacar() {
-        
+    public void atacar(int posX, int posY) {
+        System.out.println("ATACAR");
+        int c=0;
+        for (Arma arma : ArmaFactory.armasNivel) {
+            
+            if(arma!=null && arma.posX==posX && arma.posY==posY){
+                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
+                arma.vida=arma.vida-10;
+                if (arma.vida <= 0) {
+                    System.out.println("MUERTOOOO");
+                    for (int[] p : Manager.posicionesArma) {
+                        if (p[0] == posX && p[1] == posY) {
+                            Manager.posicionesArma.remove(p);
+                            break;
+                        }
+                    }
+                    ArmaFactory.armasNivel[c] = null;
+                }
+            }
+            c++;
+        }
     }
 
     @Override
@@ -301,8 +379,27 @@ class ZombieMedioAlcance extends Zombie {
     int posY = (int) (Math.random() * 23);
 
     @Override
-    public void atacar() {
-        
+    public void atacar(int posX, int posY) {
+        System.out.println("ATACAR");
+        int c=0;
+        for (Arma arma : ArmaFactory.armasNivel) {
+            
+            if(arma!=null && arma.posX==posX && arma.posY==posY){
+                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
+                arma.vida=arma.vida-10;
+                if (arma.vida <= 0) {
+                    System.out.println("MUERTOOOO");
+                    for (int[] p : Manager.posicionesArma) {
+                        if (p[0] == posX && p[1] == posY) {
+                            Manager.posicionesArma.remove(p);
+                            break;
+                        }
+                    }
+                    ArmaFactory.armasNivel[c] = null;
+                }
+            }
+            c++;
+        }
     }
 
     @Override
@@ -316,25 +413,25 @@ class ZombieMedioAlcance extends Zombie {
 
     @Override
     public void mover() {
-        buscarBoton(posX, posY).setEnabled(false);
-        for (int[] p : Manager.posiciones) {
+        buscarBoton(posX, posY).setBackground(null);
+        buscarBoton(posX, posY).setText(null);
+        for (int[] p : Manager.posicionesZombie) {
             
         }
-        System.out.println("");
         int[] act = new int[2];
         act[0] = posX;
         act[1] = posY;
         if (posX > 12) {
-            posX = posX - 2;
+            posX --;
         }
         if (posY > 12) {
-            posY = posY - 2;
+            posY --;
         }
         if (posX < 12) {
-            posX = posX + 2;
+            posX ++;
         }
         if (posY < 12) {
-            posY = posY + 2;
+            posY ++;
         }
         //pos[0] = posX;
         //pos[1] = posY;
@@ -342,7 +439,7 @@ class ZombieMedioAlcance extends Zombie {
         nuevo[0] = posX;
         nuevo[1] = posY;
         boolean ocupada = false;
-        for (int[] p : Manager.posiciones) {
+        for (int[] p : Manager.posicionesZombie) {
             if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
                 posX = act[0];
                 pos[0] = act[0];
@@ -352,12 +449,24 @@ class ZombieMedioAlcance extends Zombie {
                 break;
             }
         }
+        for (int[] p : Manager.posicionesArma) {
+            if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
+                posX = act[0];
+                pos[0] = act[0];
+                posY = act[1];
+                pos[1] = act[1];
+                ocupada = true;
+                atacar(nuevo[0],nuevo[1]);
+                break;
+            }
+        }
+        
         if (!ocupada) {
-            Manager.posiciones.add(nuevo);
+            Manager.posicionesZombie.add(nuevo);
             int remove = 0;
-            for (int[] p : Manager.posiciones) {
+            for (int[] p : Manager.posicionesZombie) {
                 if (p[0] == act[0] && p[1] == act[1]) {
-                    Manager.posiciones.remove(remove);
+                    Manager.posicionesZombie.remove(remove);
                     break;
                 }
                 remove++;
@@ -365,6 +474,7 @@ class ZombieMedioAlcance extends Zombie {
         }
 
         buscarBoton(posX, posY).setBackground(Color.yellow);
+        buscarBoton(posX, posY).setText("Z");
         buscarBoton(posX, posY).setEnabled(true);
     }
 
@@ -377,7 +487,7 @@ class ZombieMedioAlcance extends Zombie {
             try {
                 morir();
                 mover();
-                atacar();
+                //atacar();
                 sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);

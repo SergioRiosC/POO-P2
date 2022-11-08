@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 public class Juego extends javax.swing.JFrame {
     int tam = 27;
     int inicio = 10;
-    int tipo = 0;
+    static int tipo = 0;
     static ArrayList<JButton> botones = new ArrayList<>();
     ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
     JButton ultimoModificado = null;
@@ -40,7 +40,18 @@ public class Juego extends javax.swing.JFrame {
                 break;
                 
             case 1: //caso del bloque
-                color = Color.gray;
+                
+                String[] nombre=boton.getName().split("-");
+                int posX= Integer.valueOf(nombre[0]);
+                int posY= Integer.valueOf(nombre[1]);
+                Arma a =ArmaFactory.getNewArma(TIPOARMA.BLOQUE,posX,posY);
+                if(a==null){
+                    
+                }else{
+                    a.start();
+                    color = Color.gray;
+                }
+                
                 break;
                 
             case 2://contacto
@@ -61,6 +72,8 @@ public class Juego extends javax.swing.JFrame {
         }
         String[] lista = boton.getName().split("-");
         cambiarEstadoMatriz(Integer.valueOf(lista[0]), Integer.valueOf(lista[1]), tipo);
+        int[]pos=new int[2];pos[0]=Integer.valueOf(lista[0]);pos[1]=Integer.valueOf(lista[1]);
+        Manager.posicionesArma.add(pos);
         boton.setBackground(color);
     }
     
@@ -127,17 +140,7 @@ public class Juego extends javax.swing.JFrame {
         aereo.setIcon(avion);
         multiple.setIcon(iron);
         
-        /*
         
-        for(int i=0;i<2;i++){
-            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO);
-            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
-            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE);
-            z.start();
-            z1.start();
-            z2.start();
-        }
-        */
         
         
     }
@@ -204,7 +207,7 @@ public class Juego extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(565, Short.MAX_VALUE))
+                .addContainerGap(560, Short.MAX_VALUE))
         );
 
         pantallas.addTab("tab1", jPanel1);
@@ -285,7 +288,7 @@ public class Juego extends javax.swing.JFrame {
                 .addComponent(aereo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(multiple, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pantallas.addTab("tab2", principal);
@@ -314,6 +317,14 @@ public class Juego extends javax.swing.JFrame {
 
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
+        for(int i=0;i<2;i++){
+            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO);
+            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
+            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE);
+            z.start();
+            z1.start();
+            z2.start();
+        }
     }//GEN-LAST:event_iniciarActionPerformed
 
     private void multipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multipleActionPerformed

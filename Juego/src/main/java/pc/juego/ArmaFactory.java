@@ -12,7 +12,7 @@ public class ArmaFactory {
 
     static Arma[] armasNivel = new Arma[Manager.campoEjercitos];
     
-    public static Arma getNewArma(TIPOARMA tipo) {
+    public static Arma getNewArma(TIPOARMA tipo,int posX, int posY) {
 
         switch (tipo) {
             case CONTACTO:
@@ -67,14 +67,35 @@ public class ArmaFactory {
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
                             Arma a =new ArmaImpacto();
+                            a.posX=posX;
+                            a.posY=posY;
                             armasNivel[i]=a;
                             return a;
                         }
                     }
                     
                 }
+            case BLOQUE:
+                if (campoEjercitos() < ArmaBloque.campos) {
+                    return null;
+                } else {
+                    
+                    for (int i = 0; i < armasNivel.length; i++) {
+                        if (armasNivel[i] == null) {
+                            Arma a =new ArmaBloque();
+                            a.posX=posX;
+                            a.posY=posY;
+                            
+                            armasNivel[i]=a;
+                            return a;
+                        }
+                    }
+                    
+                    
+                }
 
         }
+        
         return null;
     }
 

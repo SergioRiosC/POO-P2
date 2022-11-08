@@ -17,7 +17,8 @@ public class Manager implements Serializable {
     static int campoEjercitos = 20;
     static ArrayList<Arma[]> ejercitoArma = new ArrayList<Arma[]>();
     static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
-    static ArrayList<int[]> posiciones =new ArrayList<int[]>();
+    static ArrayList<int[]> posicionesZombie =new ArrayList<int[]>();
+    static ArrayList<int[]> posicionesArma =new ArrayList<int[]>();
     ManejadorArchivos MA = new ManejadorArchivos();
     
     /*
