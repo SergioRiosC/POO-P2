@@ -4,7 +4,10 @@
  */
 package pc.juego;
 
+import java.io.StringWriter;
 import javax.swing.JOptionPane;
+import org.json.JSONObject;
+import org.json.JSONObject;
 
 /**
  *
@@ -13,6 +16,7 @@ import javax.swing.JOptionPane;
 public class admin extends javax.swing.JFrame {
     
     ManejadorArchivos manejador = new ManejadorArchivos();
+    JSONObject json;
     
     protected String getUsuarios(){
         return manejador.leer("usuarios/admins/admins.txt");
@@ -52,7 +56,7 @@ public class admin extends javax.swing.JFrame {
         golpes = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        vida = new javax.swing.JTextField();
         nivel = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -128,7 +132,7 @@ public class admin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 50)); // NOI18N
         jLabel4.setText("Creación");
 
-        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Defensa", "Ataque", "SUper Zombie" }));
+        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Defensa", "Ataque", "Super Zombie" }));
 
         jLabel5.setText("Tipo");
 
@@ -142,9 +146,9 @@ public class admin extends javax.swing.JFrame {
 
         jLabel8.setText("Vida");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        vida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                vidaActionPerformed(evt);
             }
         });
 
@@ -181,7 +185,7 @@ public class admin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(vida, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -219,7 +223,7 @@ public class admin extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(105, 105, 105)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -255,6 +259,7 @@ public class admin extends javax.swing.JFrame {
         String[] todos;
         Boolean encontrado = false;
         
+        
         if(!usuarios.equals("1")){
             todos = usuarios.split("#");
             for(String i: todos){
@@ -280,12 +285,52 @@ public class admin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void vidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vidaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_vidaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        String tip = String.valueOf(tipo.getSelectedItem());
+        String atac = String.valueOf(ataque.getSelectedItem()); 
+        int golpesX = Integer.valueOf(String.valueOf(golpes.getSelectedItem()));
+        int vid = 0;
+        int aparicion = Integer.valueOf(String.valueOf(nivel.getSelectedItem()));
+        
+        if(!vida.getText().equals("")){
+            vid = Integer.valueOf(vida.getText());
+            json = new JSONObject();
+            json.put("tipo", tip);
+            json.put("ataque", atac);
+            json.put("golpes_por_segundo", golpesX);
+            json.put("vida", vid);
+            json.put("nivel_aparicion", aparicion);
+            
+            
+            StringWriter salida = new StringWriter();
+            json.write(salida);
+            String jsonS = salida.toString();
+            
+            String ruta = "";
+            
+            if(tip.equals("Defensa")){
+                ruta = "personajes/defensas.txt";
+            }
+            else if(tip.equals("Ataque")){
+                ruta = "personajes/ataques.txt";
+            }
+            else{
+                ruta = "personajes/super.txt";
+            }
+            String anteriores = manejador.leer(ruta);
+            manejador.escribir(ruta, anteriores+jsonS+"@");
+            JOptionPane.showMessageDialog(pantallas, "Se guardo el objeto!!", "ERROR!", JOptionPane.INFORMATION_MESSAGE);
+            vida.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(pantallas, "Debe ingresar un valor para la vida!!!", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -339,11 +384,11 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> nivel;
     private javax.swing.JTabbedPane pantallas;
     private javax.swing.JPasswordField password;
     private javax.swing.JComboBox<String> tipo;
     private javax.swing.JTextField username;
+    private javax.swing.JTextField vida;
     // End of variables declaration//GEN-END:variables
 }

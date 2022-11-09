@@ -1,0 +1,1 @@
+{"tipo":"Ataque","nivel_aparicion":1,"ataque":"Aereo","vida":100,"golpes_por_segundo":8}@{"tipo":"Ataque","nivel_aparicion":1,"ataque":"Multiple","vida":124,"golpes_por_segundo":12}@{"tipo":"Ataque","nivel_aparicion":6,"ataque":"Aereo","vida":211,"golpes_por_segundo":15}@

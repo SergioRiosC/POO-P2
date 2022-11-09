@@ -7,8 +7,8 @@ import javax.swing.JButton;
 import java.util.ArrayList;
 import java.awt.Color;
 import javax.swing.ImageIcon;
-
-/**
+import org.json.JSONObject;
+        /**
  *
  * @author sebastianqr.2208
  */
@@ -18,6 +18,7 @@ public class Juego extends javax.swing.JFrame {
     static int tipo = 0;
     static ArrayList<JButton> botones = new ArrayList<>();
     ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
+    ManejadorArchivos manejador = new ManejadorArchivos();
     JButton ultimoModificado = null;
     ImageIcon puntero = new ImageIcon("imagenes/botones/puntero.png");
     ImageIcon muro = new ImageIcon("imagenes/botones/muro.jpeg");
@@ -25,6 +26,42 @@ public class Juego extends javax.swing.JFrame {
     ImageIcon mediano = new ImageIcon("imagenes/botones/mediano.png");
     ImageIcon avion = new ImageIcon("imagenes/botones/avion.png");
     ImageIcon iron = new ImageIcon("imagenes/botones/multiple.png");
+    
+    ArrayList<String> rutas = new ArrayList<>();
+    ArrayList<JSONObject> defensas = new ArrayList<>();
+    ArrayList<JSONObject> supers = new ArrayList<>();
+    ArrayList<JSONObject> ataques = new ArrayList<>();
+    
+    private String[] delete(String[] arr, String ele){
+        ArrayList<String> aux = new ArrayList<>();
+        for(String i: arr){
+            if(!i.equals(ele)){
+                aux.add(i);
+            }
+        }
+        return aux.toArray(new String[0]);
+    }
+    
+    private void leerArchivos(){
+        int c = 0;
+        for(String ruta : rutas){
+            String aux = manejador.leer(ruta);
+            String[] aux2 = aux.split("@");
+            aux2 = delete(aux2, "");
+            for(String i: aux2){
+                if(c == 0){
+                    defensas.add(new JSONObject(i));
+                }
+                else if(c == 1){
+                    supers.add(new JSONObject(i));
+                }
+                else{
+                    ataques.add(new JSONObject(i));
+                }
+            }
+            c++;
+        }
+    }
     
     
     private void cambiarEstadoMatriz(int x, int y, int estado){
@@ -181,8 +218,11 @@ public class Juego extends javax.swing.JFrame {
         med.setIcon(mediano);
         aereo.setIcon(avion);
         multiple.setIcon(iron);
-        
-        
+        rutas.add("personajes/defensas.txt");
+        rutas.add("personajes/super.txt");
+        rutas.add("personajes/ataques.txt");
+        leerArchivos();
+        System.out.println(ataques);
         
         
     }
