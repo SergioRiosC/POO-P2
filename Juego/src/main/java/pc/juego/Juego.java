@@ -18,7 +18,7 @@ public class Juego extends javax.swing.JFrame {
     static int tipo = 0;
     static ArrayList<JButton> botones = new ArrayList<>();
     ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
-    ManejadorArchivos manejador = new ManejadorArchivos();
+    ManejadorArchivos manejador=new ManejadorArchivos();
     JButton ultimoModificado = null;
     ImageIcon puntero = new ImageIcon("imagenes/botones/puntero.png");
     ImageIcon muro = new ImageIcon("imagenes/botones/muro.jpeg");
@@ -399,14 +399,40 @@ public class Juego extends javax.swing.JFrame {
 
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
-        for(int i=0;i<2;i++){
-            
-            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO,(int)(Math.random()*23),(int) (Math.random() * 23));
-            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO,(int) (Math.random() * 23),(int) (Math.random() * 23));
-            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE,(int) (Math.random() * 23),(int) (Math.random() * 23));
-            z.start();
-            z1.start();
-            z2.start();
+        for (JSONObject defensa : defensas) {
+            System.out.println("DEFENSA: " + defensa);
+            if (Manager.nivel == (int) defensa.get("nivel_aparicion")) {
+                switch (defensa.get("ataque").toString()) {
+                    case "Aereo":
+
+                        Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                                5, 1, (int) defensa.get("nivel_aparicion"));
+                        z.start();
+                        System.out.println("ZOMBIE AEREO CREADO");
+
+                        break;
+
+                    case "Contacto":
+                        Zombie z2 = ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                                5, 1, (int) defensa.get("nivel_aparicion"));
+                        z2.start();
+                        System.out.println("ZOMBIE CONTACTO CREADO");
+                        break;
+                    case "Mediano Alcance":
+                        Zombie z3 = ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                                5, 1, (int) defensa.get("nivel_aparicion"));
+                        z3.start();
+                        System.out.println("ZOMBIE MED CREADO");
+                        break;
+                    case "Choque":
+                        Zombie z4 = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                                5, 1, (int) defensa.get("nivel_aparicion"));
+                        z4.start();
+                        System.out.println("ZOMBIE CHOQUE CREADO");
+                        break;
+
+                }
+            }
         }
     }//GEN-LAST:event_iniciarActionPerformed
 

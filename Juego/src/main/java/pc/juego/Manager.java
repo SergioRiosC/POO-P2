@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Manager implements Serializable {
 
-    static int nivel = 1;
+    static int nivel=1;
     static int campoEjercitos = 20;
     static ArrayList<Arma[]> ejercitoArma = new ArrayList<Arma[]>();
     static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
@@ -72,4 +72,15 @@ public class Manager implements Serializable {
             MA.guardarJuego(j, username, false, username);
         }
     }
+    public static void terminarNivel(){
+        System.out.println("TERMINAR NIVEL");
+        for (Arma[] arma : ejercitoArma) {
+            for (int i = 0; i < arma.length; i++) {
+                arma[i].interrupt();
+            }
+        }
+        nivel++;
+        
+    }
+    
 }
