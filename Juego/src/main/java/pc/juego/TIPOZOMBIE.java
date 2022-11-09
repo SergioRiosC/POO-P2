@@ -62,7 +62,6 @@ class ZombieContacto extends Zombie {
                 //System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
-                    System.out.println("MUERTOOOO");
                     for (int[] p : Manager.posicionesArma) {
                         if (p[0] == posX && p[1] == posY) {
                             Manager.posicionesArma.remove(p);
@@ -155,7 +154,6 @@ class ZombieContacto extends Zombie {
     public void run() {
         Manager.posicionesZombie.clear();
         while (vida>0) {
-            System.out.println("VIDA ZOMBIE: "+vida);
             try {
                 mover();
                 //atacar();
@@ -192,15 +190,12 @@ class ZombieAereo extends Zombie {
 
     @Override
     public void atacar(int posX, int posY) {
-        System.out.println("ATACAR");
         int c=0;
         for (Arma arma : ArmaFactory.armasNivel) {
             
             if(arma!=null && arma.posX==posX && arma.posY==posY){
-                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
-                    System.out.println("MUERTOOOO");
                     for (int[] p : Manager.posicionesArma) {
                         if (p[0] == posX && p[1] == posY) {
                             Manager.posicionesArma.remove(p);
@@ -239,35 +234,20 @@ class ZombieAereo extends Zombie {
         if (posY < 12) {
             posY++;
         }
-        //pos[0] = posX;
-        //pos[1] = posY;
         int[] nuevo = new int[2];
         nuevo[0] = posX;
         nuevo[1] = posY;
-        boolean ocupada = false;
-        for (int[] p : Manager.posicionesZombie) {
-            if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
-                posX = act[0];
-                pos[0] = act[0];
-                posY = act[1];
-                pos[1] = act[1];
-                ocupada = true;
-                break;
-            }
-        }
+        boolean atacando = false;
+        
         for (int[] p : Manager.posicionesArma) {
-            if (p[0] == nuevo[0] && p[1] == nuevo[1]) {
-                posX = act[0];
-                pos[0] = act[0];
-                posY = act[1];
-                pos[1] = act[1];
-                ocupada = true;
-                atacar(nuevo[0],nuevo[1]);
+            if (p[0] == act[0] && p[1] == act[1]) {
+                atacando = true;
+                atacar(act[0],act[1]);
                 break;
             }
         }
         
-        if (!ocupada) {
+        if (!atacando) {
 
             Manager.posicionesZombie.add(nuevo);
             int remove = 0;
@@ -329,15 +309,12 @@ class ZombieChoque extends Zombie {
 
     @Override
     public void atacar(int posX, int posY) {
-        System.out.println("ATACAR");
         int c=0;
         for (Arma arma : ArmaFactory.armasNivel) {
             
             if(arma!=null && arma.posX==posX && arma.posY==posY){
-                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
-                    System.out.println("MUERTOOOO");
                     for (int[] p : Manager.posicionesArma) {
                         if (p[0] == posX && p[1] == posY) {
                             Manager.posicionesArma.remove(p);
@@ -372,15 +349,12 @@ class ZombieMedioAlcance extends Zombie {
 
     @Override
     public void atacar(int posX, int posY) {
-        System.out.println("ATACAR");
         int c=0;
         for (Arma arma : ArmaFactory.armasNivel) {
             
             if(arma!=null && arma.posX==posX && arma.posY==posY){
-                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
-                    System.out.println("MUERTOOOO");
                     for (int[] p : Manager.posicionesArma) {
                         if (p[0] == posX && p[1] == posY) {
                             Manager.posicionesArma.remove(p);
