@@ -27,12 +27,11 @@ abstract class Zombie extends Thread {
 
     String nombre;
     String imagen;
-    Boolean alive = true;
     ArrayList<JButton> botones = Juego.getBotones();
     int posX;
     int posY;
     int[] pos = new int[2];
-    int vida;
+    int vida=100;
     int ataquePorSegundo;
     int nivel;
     int campos;
@@ -49,19 +48,18 @@ abstract class Zombie extends Thread {
 class ZombieContacto extends Zombie {
 
     static int campos = 1;
-    int vida = 100;
-    int posX = (int) (Math.random() * 23);
-    int posY = (int) (Math.random() * 23);
+    //int posX /*= (int) (Math.random() * 23)*/;
+    //int posY /*= (int) (Math.random() * 23)*/;
     int[] nuevo = new int[2];
 
     @Override
     public void atacar(int posX, int posY) {
-        System.out.println("ATACAR");
+        //System.out.println("ATACAR");
         int c=0;
         for (Arma arma : ArmaFactory.armasNivel) {
             
             if(arma!=null && arma.posX==posX && arma.posY==posY){
-                System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
+                //System.out.println("BAJA VIDA BLOQUE: X: "+arma.posX+" Y: "+posY);
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
                     System.out.println("MUERTOOOO");
@@ -81,10 +79,6 @@ class ZombieContacto extends Zombie {
     @Override
     public void morir() {
         //System.out.println("MORIR");
-        if (vida == 0) {
-            alive = false;
-            stop();
-        }
 
     }
 
@@ -160,10 +154,9 @@ class ZombieContacto extends Zombie {
     @Override
     public void run() {
         Manager.posicionesZombie.clear();
-        while (alive) {
-
+        while (vida>0) {
+            System.out.println("VIDA ZOMBIE: "+vida);
             try {
-                morir();
                 mover();
                 //atacar();
                 sleep(3000);
@@ -171,7 +164,11 @@ class ZombieContacto extends Zombie {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        morir();
+        if(vida<=0){
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();
+        }
     }
 
     public JButton buscarBoton(int posX, int posY) {
@@ -190,9 +187,8 @@ class ZombieContacto extends Zombie {
 
 class ZombieAereo extends Zombie {
     static int campos = 1;
-    int vida = 100;
-    int posX = (int) (Math.random() * 23);
-    int posY = (int) (Math.random() * 23);
+    //int posX /*= (int) (Math.random() * 23)*/;
+    //int posY /*= (int) (Math.random() * 23)*/;
 
     @Override
     public void atacar(int posX, int posY) {
@@ -221,10 +217,7 @@ class ZombieAereo extends Zombie {
     @Override
     public void morir() {
         //System.out.println("MORIR");
-        if (vida == 0) {
-            alive = false;
-            stop();
-        }
+        
     }
 
     @Override
@@ -295,7 +288,7 @@ class ZombieAereo extends Zombie {
     @Override
     public void run() {
         ArrayList<JButton> botones = Juego.getBotones();
-        while (alive) {
+        while (vida>0) {
 
             try {
                 morir();
@@ -306,7 +299,11 @@ class ZombieAereo extends Zombie {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        morir();
+        if(vida<=0){
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();
+        }
     }
 
     public JButton buscarBoton(int posX, int posY) {
@@ -327,9 +324,8 @@ class ZombieAereo extends Zombie {
 class ZombieChoque extends Zombie {
 
     static int campos = 1;
-    int vida = 100;
-    int posX = (int) (Math.random() * 23);
-    int posY = (int) (Math.random() * 23);
+    //int posX /*= (int) (Math.random() * 23)*/;
+    //int posY /*= (int) (Math.random() * 23)*/;
 
     @Override
     public void atacar(int posX, int posY) {
@@ -358,10 +354,7 @@ class ZombieChoque extends Zombie {
     @Override
     public void morir() {
         //System.out.println("MORIR");
-        if (vida == 0) {
-            alive = false;
-            stop();
-        }
+        
     }
 
     @Override
@@ -374,9 +367,8 @@ class ZombieChoque extends Zombie {
 class ZombieMedioAlcance extends Zombie {
 
     static int campos = 1;
-    int vida = 100;
-    int posX = (int) (Math.random() * 23);
-    int posY = (int) (Math.random() * 23);
+    //int posX /*= (int) (Math.random() * 23)*/;
+    //int posY /*= (int) (Math.random() * 23)*/;
 
     @Override
     public void atacar(int posX, int posY) {
@@ -405,10 +397,7 @@ class ZombieMedioAlcance extends Zombie {
     @Override
     public void morir() {
         //System.out.println("MORIR");
-        if (vida == 0) {
-            alive = false;
-            stop();
-        }
+        
     }
 
     @Override
@@ -482,7 +471,7 @@ class ZombieMedioAlcance extends Zombie {
     @Override
     public void run() {
         ArrayList<JButton> botones = Juego.getBotones();
-        while (alive) {
+        while (vida>0) {
 
             try {
                 morir();
@@ -493,7 +482,11 @@ class ZombieMedioAlcance extends Zombie {
                 Logger.getLogger(ZombieContacto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        morir();
+        if(vida<=0){
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();    
+        }
     }
     public JButton buscarBoton(int posX, int posY) {
         for (JButton boton : botones) {

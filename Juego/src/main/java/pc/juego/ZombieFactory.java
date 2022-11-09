@@ -14,7 +14,7 @@ public class ZombieFactory {
 
     static Zombie[] zombiesNivel = new Zombie[Manager.campoEjercitos];
 
-    public static Zombie getNewZombie(TIPOZOMBIE tipo) {
+    public static Zombie getNewZombie(TIPOZOMBIE tipo, int posX, int posY) {
 
         switch (tipo) {
             case AEREO:
@@ -24,6 +24,8 @@ public class ZombieFactory {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
                             Zombie z = new ZombieAereo();
+                            z.posX=posX;
+                            z.posY=posY;
                             zombiesNivel[i] = z;
                             return z;
 
@@ -37,6 +39,8 @@ public class ZombieFactory {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
                             Zombie z = new ZombieContacto();
+                            z.posX=posX;
+                            z.posY=posY;
                             zombiesNivel[i] = z;
                             return z;
                         }
@@ -51,6 +55,8 @@ public class ZombieFactory {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
                             Zombie z = new ZombieMedioAlcance();
+                            z.posX=posX;
+                            z.posY=posY;
                             zombiesNivel[i] = z;
                             return z;
                         }
@@ -64,6 +70,8 @@ public class ZombieFactory {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
                             Zombie z = new ZombieChoque();
+                            z.posX=posX;
+                            z.posY=posY;
                             zombiesNivel[i] = z;
                             return z;
                         }

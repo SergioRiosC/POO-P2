@@ -55,19 +55,58 @@ public class Juego extends javax.swing.JFrame {
                 break;
                 
             case 2://contacto
-                color = Color.getHSBColor(170, 139, 90);
+                String[] nombre1=boton.getName().split("-");
+                int posX1= Integer.valueOf(nombre1[0]);
+                int posY1= Integer.valueOf(nombre1[1]);
+                Arma a1 =ArmaFactory.getNewArma(TIPOARMA.CONTACTO,posX1,posY1);
+                if(a1==null){
+                    
+                }else{
+                    a1.start();
+                    color = Color.getHSBColor(170, 139, 90);
+                }
                 break;
                 
             case 3://mediano alcance
-                color = Color.orange;
+                
+                String[] nombre2=boton.getName().split("-");
+                int posX2= Integer.valueOf(nombre2[0]);
+                int posY2= Integer.valueOf(nombre2[1]);
+                Arma a2 =ArmaFactory.getNewArma(TIPOARMA.MEDIANO_ALCANCE,posX2,posY2);
+                if(a2==null){
+                    
+                }else{
+                    a2.start();
+                    color = Color.orange;
+                }
                 break;
                 
             case 4: //aereo
-                color = Color.blue;
+                String[] nombre3=boton.getName().split("-");
+                int posX3= Integer.valueOf(nombre3[0]);
+                int posY3= Integer.valueOf(nombre3[1]);
+                Arma a3 =ArmaFactory.getNewArma(TIPOARMA.AEREO,posX3,posY3);
+                if(a3==null){
+                    
+                }else{
+                    a3.start();
+                    color = Color.blue;
+                }
+                
                 break;
                 
             case 5: //multiple
-                color = Color.getHSBColor(135, 76, 98);
+                String[] nombre4=boton.getName().split("-");
+                int posX4= Integer.valueOf(nombre4[0]);
+                int posY4= Integer.valueOf(nombre4[1]);
+                Arma a4 =ArmaFactory.getNewArma(TIPOARMA.ATAQUE_MULTIPLE,posX4,posY4);
+                if(a4==null){
+                    
+                }else{
+                    a4.start();
+                    color = Color.getHSBColor(135, 76, 98);
+                }
+                
                 break;
         }
         String[] lista = boton.getName().split("-");
@@ -99,6 +138,9 @@ public class Juego extends javax.swing.JFrame {
                 String name = Integer.toString(i) + "-" + Integer.toString(j);
                 but.setName(name);
                 but.addActionListener(e -> accionButton(but));
+                if(j==12&&i==12){
+                    but.setBackground(Color.PINK);
+                }
                 botones.add(but);
                 posX += tam;
             }
@@ -318,9 +360,10 @@ public class Juego extends javax.swing.JFrame {
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
         for(int i=0;i<2;i++){
-            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO);
-            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
-            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE);
+            
+            Zombie z =ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO,(int)(Math.random()*23),(int) (Math.random() * 23));
+            Zombie z1 =ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO,(int) (Math.random() * 23),(int) (Math.random() * 23));
+            Zombie z2 =ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE,(int) (Math.random() * 23),(int) (Math.random() * 23));
             z.start();
             z1.start();
             z2.start();
