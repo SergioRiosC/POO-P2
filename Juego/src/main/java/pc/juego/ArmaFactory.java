@@ -23,6 +23,8 @@ public class ArmaFactory {
                         if (armasNivel[i] == null) {
                             Arma a = new ArmaContacto();
                             armasNivel[i]=a;
+                            a.posX=posX;
+                            a.posY=posY;
                             return a;
                         }
                     }
@@ -38,6 +40,8 @@ public class ArmaFactory {
                         if (armasNivel[i] == null) {
                             Arma a =new ArmaAerea();
                             armasNivel[i]=a;
+                            a.posX=posX;
+                            a.posY=posY;
                             return a;
                         }
                     }
@@ -53,6 +57,8 @@ public class ArmaFactory {
                         if (armasNivel[i] == null) {
                             Arma a =new ArmaMedianoAlcance();
                             armasNivel[i]=a;
+                            a.posX=posX;
+                            a.posY=posY;
                             return a;
                         }
                     }
