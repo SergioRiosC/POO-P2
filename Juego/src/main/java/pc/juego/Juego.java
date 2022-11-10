@@ -6,6 +6,7 @@ package pc.juego;
 import javax.swing.JButton;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.json.JSONObject;
@@ -177,6 +178,7 @@ public class Juego extends javax.swing.JFrame {
                 String name = Integer.toString(i) + "-" + Integer.toString(j);
                 but.setName(name);
                 but.addActionListener(e -> accionButton(but));
+                but.setFont(new Font("Arial", Font.PLAIN, 8));
                 if(j==12&&i==12){
                     but.setBackground(Color.PINK);
                 }
