@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Manager implements Serializable {
 
-    static int nivel=1;
+    static int nivel;
     static int campoEjercitos = 20;
     static ArrayList<Arma[]> ejercitoArma = new ArrayList<Arma[]>();
     static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
@@ -21,32 +21,7 @@ public class Manager implements Serializable {
     static ArrayList<int[]> posicionesArma =new ArrayList<int[]>();
     ManejadorArchivos MA = new ManejadorArchivos();
     
-    /*
-
-    public static void main(String[] args) {
-
-        for (int i = 0; i < 25; i++) {
-
-            Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO);
-            if (z != null) {
-                z.nombre = "Zombie " + i;
-            }
-
-            System.out.println(i + " ZOMBIE: " + z);
-        }
-        for (int i = 0; i < 25; i++) {
-
-            Arma a = ArmaFactory.getNewArma(TIPOARMA.AEREO);
-            if (a != null) {
-                a.nombre = "Arma " + i;
-            }
-
-            System.out.println(i + " ARMA: " + a);
-        }
-        init();
-
-    }
-*/
+    
 
     public static void init() {
 
@@ -74,12 +49,33 @@ public class Manager implements Serializable {
     }
     public static void terminarNivel(){
         System.out.println("TERMINAR NIVEL");
-        for (Arma[] arma : ejercitoArma) {
-            for (int i = 0; i < arma.length; i++) {
-                arma[i].interrupt();
+        //Juego.getNivel();
+        for (Zombie[] zombie : ejercitoZombie) {
+            System.out.println("FOR ARMAS");
+            nivel++;
+            if(zombie.length==0){
+                break;
             }
+                
+            
         }
-        nivel++;
+        System.out.println("NIVEL NUEVO: "+nivel); 
+        
+        
+        for (Arma arma : ArmaFactory.armasNivel) {
+            if(arma!=null){
+                arma.vida=0;
+            }
+            
+        }
+        for (Zombie zombie : ZombieFactory.zombiesNivel) {
+            if(zombie!=null){
+                zombie.vida=0;
+            }
+            
+        }
+        
+                
         
     }
     

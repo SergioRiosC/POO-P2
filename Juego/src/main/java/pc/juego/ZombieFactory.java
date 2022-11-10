@@ -4,6 +4,7 @@
  */
 package pc.juego;
 
+import static pc.juego.ArmaFactory.armasNivel;
 import pc.juego.Manager;
 
 /**
@@ -15,7 +16,7 @@ public class ZombieFactory {
     static Zombie[] zombiesNivel = new Zombie[Manager.campoEjercitos];
 
     public static Zombie getNewZombie(TIPOZOMBIE tipo, int posX, int posY) {
-
+        Zombie z;
         switch (tipo) {
             case AEREO:
                 if (campoEjercitos() < ZombieAereo.campos) {
@@ -23,7 +24,7 @@ public class ZombieFactory {
                 } else {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z = new ZombieAereo();
+                            z = new ZombieAereo();
                             z.posX=posX;
                             z.posY=posY;
                             zombiesNivel[i] = z;
@@ -38,7 +39,7 @@ public class ZombieFactory {
                 } else {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z = new ZombieContacto();
+                            z = new ZombieContacto();
                             z.posX=posX;
                             z.posY=posY;
                             zombiesNivel[i] = z;
@@ -54,7 +55,7 @@ public class ZombieFactory {
                 } else {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z = new ZombieMedioAlcance();
+                            z = new ZombieMedioAlcance();
                             z.posX=posX;
                             z.posY=posY;
                             zombiesNivel[i] = z;
@@ -69,7 +70,7 @@ public class ZombieFactory {
                 } else {
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z = new ZombieChoque();
+                            z = new ZombieChoque();
                             z.posX=posX;
                             z.posY=posY;
                             zombiesNivel[i] = z;
@@ -78,12 +79,13 @@ public class ZombieFactory {
                     }
                 }
         }
+        Manager.ejercitoZombie.add(zombiesNivel);
         return null;
     }
 
-    public static Zombie getNewZombie(TIPOZOMBIE tipo, String nombre, String imagen,
+    public static Zombie getNewZombie(TIPOZOMBIE tipo,int posX,int posY, String nombre, String imagen,
             int vida, int ataquePorSegundo, int nivel, int campos, int nivelAparicion) {
-
+        Zombie z;
         switch (tipo) {
             case AEREO:
 
@@ -93,7 +95,7 @@ public class ZombieFactory {
 
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z = new ZombieAereo();
+                            z = new ZombieAereo();
                             z.nombre = nombre;
                             z.imagen = imagen;
                             z.vida = vida;
@@ -101,6 +103,8 @@ public class ZombieFactory {
                             z.nivel = nivel;
                             z.campos = campos;
                             z.nivelAparicion = nivelAparicion;
+                            z.posX=posX;
+                            z.posY=posY;
                             zombiesNivel[i] = z;
                             return z;
                         }
@@ -114,16 +118,19 @@ public class ZombieFactory {
 
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z1 = new ZombieContacto();
-                            z1.nombre = nombre;
-                            z1.imagen = imagen;
-                            z1.vida = vida;
-                            z1.ataquePorSegundo = ataquePorSegundo;
-                            z1.nivel = nivel;
-                            z1.campos = campos;
-                            z1.nivelAparicion = nivelAparicion;
-                            zombiesNivel[i] = z1;
-                            return z1;
+                            z = new ZombieContacto();
+                            z.nombre = nombre;
+                            z.imagen = imagen;
+                            z.vida = vida;
+                            z.ataquePorSegundo = ataquePorSegundo;
+                            z.nivel = nivel;
+                            z.campos = campos;
+                            
+                            z.nivelAparicion = nivelAparicion;
+                            z.posX=posX;
+                            z.posY=posY;
+                            zombiesNivel[i] = z;
+                            return z;
                         }
                     }
 
@@ -136,16 +143,18 @@ public class ZombieFactory {
 
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z2 = new ZombieAereo();
-                            z2.nombre = nombre;
-                            z2.imagen = imagen;
-                            z2.vida = vida;
-                            z2.ataquePorSegundo = ataquePorSegundo;
-                            z2.nivel = nivel;
-                            z2.campos = campos;
-                            z2.nivelAparicion = nivelAparicion;
-                            zombiesNivel[i] = z2;
-                            return z2;
+                            z = new ZombieMedioAlcance();
+                            z.nombre = nombre;
+                            z.imagen = imagen;
+                            z.vida = vida;
+                            z.ataquePorSegundo = ataquePorSegundo;
+                            z.nivel = nivel;
+                            z.campos = campos;
+                            z.nivelAparicion = nivelAparicion;
+                            z.posX=posX;
+                            z.posY=posY;
+                            zombiesNivel[i] = z;
+                            return z;
                         }
                     }
                 }
@@ -156,20 +165,23 @@ public class ZombieFactory {
 
                     for (int i = 0; i < zombiesNivel.length; i++) {
                         if (zombiesNivel[i] == null) {
-                            Zombie z3 = new ZombieAereo();
-                            z3.nombre = nombre;
-                            z3.imagen = imagen;
-                            z3.vida = vida;
-                            z3.ataquePorSegundo = ataquePorSegundo;
-                            z3.nivel = nivel;
-                            z3.campos = campos;
-                            z3.nivelAparicion = nivelAparicion;
-                            zombiesNivel[i] = z3;
-                            return z3;
+                            z = new ZombieAereo();
+                            z.nombre = nombre;
+                            z.imagen = imagen;
+                            z.vida = vida;
+                            z.ataquePorSegundo = ataquePorSegundo;
+                            z.nivel = nivel;
+                            z.campos = campos;
+                            z.nivelAparicion = nivelAparicion;
+                            z.posX=posX;
+                            z.posY=posY;
+                            zombiesNivel[i] = z;
+                            return z;
                         }
                     }
                 }
         }
+        Manager.ejercitoZombie.add(zombiesNivel);
         return null;
     }
 

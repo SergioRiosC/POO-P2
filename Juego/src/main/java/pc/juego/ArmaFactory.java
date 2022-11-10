@@ -13,7 +13,7 @@ public class ArmaFactory {
     static Arma[] armasNivel = new Arma[Manager.campoEjercitos];
     
     public static Arma getNewArma(TIPOARMA tipo,int posX, int posY) {
-
+        Arma a;
         switch (tipo) {
             case CONTACTO:
                 if (campoEjercitos() < ArmaContacto.campos) {
@@ -21,7 +21,7 @@ public class ArmaFactory {
                 } else {
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a = new ArmaContacto();
+                            a = new ArmaContacto();
                             armasNivel[i]=a;
                             a.posX=posX;
                             a.posY=posY;
@@ -38,7 +38,7 @@ public class ArmaFactory {
                     
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a =new ArmaAerea();
+                            a =new ArmaAerea();
                             armasNivel[i]=a;
                             a.posX=posX;
                             a.posY=posY;
@@ -55,7 +55,7 @@ public class ArmaFactory {
                     
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a =new ArmaMedianoAlcance();
+                            a =new ArmaMedianoAlcance();
                             armasNivel[i]=a;
                             a.posX=posX;
                             a.posY=posY;
@@ -72,7 +72,7 @@ public class ArmaFactory {
                     
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a =new ArmaImpacto();
+                            a =new ArmaImpacto();
                             a.posX=posX;
                             a.posY=posY;
                             armasNivel[i]=a;
@@ -88,7 +88,7 @@ public class ArmaFactory {
                     
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a =new ArmaBloque();
+                            a =new ArmaBloque();
                             a.posX=posX;
                             a.posY=posY;
                             
@@ -101,13 +101,13 @@ public class ArmaFactory {
                 }
 
         }
-        
+        Manager.ejercitoArma.add(armasNivel);
         return null;
     }
 
     public static Arma getNewArma(TIPOARMA tipo, String nombre, String imagen,
             int vida, int ataquePorSegundo, int nivel, int campos, int nivelAparicion) {
-
+        Arma a;
         switch (tipo) {
             case CONTACTO:
                 if (campoEjercitos() < ArmaContacto.campos) {
@@ -116,7 +116,7 @@ public class ArmaFactory {
 
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a = new ArmaContacto();
+                             a = new ArmaContacto();
                             a.nombre = nombre;
                             a.imagen = imagen;
                             a.vida = vida;
@@ -137,16 +137,16 @@ public class ArmaFactory {
 
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a1 = new ArmaAerea();
-                            a1.nombre = nombre;
-                            a1.imagen = imagen;
-                            a1.vida = vida;
-                            a1.ataquePorSegundo = ataquePorSegundo;
-                            a1.nivel = nivel;
-                            a1.campos = campos;
-                            a1.nivelAparicion = nivelAparicion;
-                            armasNivel[i] = a1;
-                            return a1;
+                             a = new ArmaAerea();
+                            a.nombre = nombre;
+                            a.imagen = imagen;
+                            a.vida = vida;
+                            a.ataquePorSegundo = ataquePorSegundo;
+                            a.nivel = nivel;
+                            a.campos = campos;
+                            a.nivelAparicion = nivelAparicion;
+                            armasNivel[i] = a;
+                            return a;
                         }
                     }
 
@@ -159,16 +159,16 @@ public class ArmaFactory {
 
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a2 = new ArmaMedianoAlcance();
-                            a2.nombre = nombre;
-                            a2.imagen = imagen;
-                            a2.vida = vida;
-                            a2.ataquePorSegundo = ataquePorSegundo;
-                            a2.nivel = nivel;
-                            a2.campos = campos;
-                            a2.nivelAparicion = nivelAparicion;
-                            armasNivel[i] = a2;
-                            return a2;
+                            a = new ArmaMedianoAlcance();
+                            a.nombre = nombre;
+                            a.imagen = imagen;
+                            a.vida = vida;
+                            a.ataquePorSegundo = ataquePorSegundo;
+                            a.nivel = nivel;
+                            a.campos = campos;
+                            a.nivelAparicion = nivelAparicion;
+                            armasNivel[i] = a;
+                            return a;
                         }
                     }
 
@@ -180,21 +180,22 @@ public class ArmaFactory {
 
                     for (int i = 0; i < armasNivel.length; i++) {
                         if (armasNivel[i] == null) {
-                            Arma a3 = new ArmaImpacto();
-                            a3.nombre = nombre;
-                            a3.imagen = imagen;
-                            a3.vida = vida;
-                            a3.ataquePorSegundo = ataquePorSegundo;
-                            a3.nivel = nivel;
-                            a3.campos = campos;
-                            a3.nivelAparicion = nivelAparicion;
-                            armasNivel[i] = a3;
-                            return a3;
+                            a = new ArmaImpacto();
+                            a.nombre = nombre;
+                            a.imagen = imagen;
+                            a.vida = vida;
+                            a.ataquePorSegundo = ataquePorSegundo;
+                            a.nivel = nivel;
+                            a.campos = campos;
+                            a.nivelAparicion = nivelAparicion;
+                            armasNivel[i] = a;
+                            return a;
                         }
                     }
 
                 }
         }
+        Manager.ejercitoArma.add(armasNivel);
         return null;
     }
 

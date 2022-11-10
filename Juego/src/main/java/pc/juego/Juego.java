@@ -15,7 +15,7 @@ import org.json.JSONObject;
  * @author sebastianqr.2208
  */
 public class Juego extends javax.swing.JFrame {
-    int tam = 27;
+    int tam = 30;
     int inicio = 10;
     static int tipo = 0;
     int nivel = 1;
@@ -178,7 +178,7 @@ public class Juego extends javax.swing.JFrame {
                 String name = Integer.toString(i) + "-" + Integer.toString(j);
                 but.setName(name);
                 but.addActionListener(e -> accionButton(but));
-                but.setFont(new Font("Arial", Font.PLAIN, 8));
+                but.setFont(new Font("Arial", Font.PLAIN, 4));
                 if(j==12&&i==12){
                     but.setBackground(Color.PINK);
                 }
@@ -525,13 +525,16 @@ public class Juego extends javax.swing.JFrame {
 
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
+        int posX = (int) (Math.random() * 23);
+        int posY = (int) (Math.random() * 23);
+        
         for (JSONObject defensa : defensas) {
             System.out.println("DEFENSA: " + defensa);
             if (Manager.nivel == (int) defensa.get("nivel_aparicion")) {
                 switch (defensa.get("ataque").toString()) {
                     case "Aereo":
-
-                        Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                        
+                        Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, posX,posY,"Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z.start();
                         System.out.println("ZOMBIE AEREO CREADO");
@@ -539,19 +542,19 @@ public class Juego extends javax.swing.JFrame {
                         break;
 
                     case "Contacto":
-                        Zombie z2 = ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                        Zombie z2 = ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z2.start();
                         System.out.println("ZOMBIE CONTACTO CREADO");
                         break;
                     case "Mediano Alcance":
-                        Zombie z3 = ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                        Zombie z3 = ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z3.start();
                         System.out.println("ZOMBIE MED CREADO");
                         break;
                     case "Choque":
-                        Zombie z4 = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
+                        Zombie z4 = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z4.start();
                         System.out.println("ZOMBIE CHOQUE CREADO");
@@ -560,6 +563,9 @@ public class Juego extends javax.swing.JFrame {
                 }
             }
         }
+        
+        
+        
     }//GEN-LAST:event_iniciarActionPerformed
 
     private void multipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multipleActionPerformed
@@ -672,7 +678,16 @@ public class Juego extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        int nivel=1;
+        for (Arma[] armas : Manager.ejercitoArma) {
+            if(armas.length==0){
+                break;
+            }else{
+                nivel=13;
+            }
+        }
+        Manager.nivel=nivel;
+        System.out.println("NIVEL ACTUAL: "+nivel);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
