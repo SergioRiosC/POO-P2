@@ -211,6 +211,7 @@ public class Juego extends javax.swing.JFrame {
      */
     public Juego() {
         initComponents();
+        nivel = Integer.valueOf(manejador.leer("nivel.txt"));   
         pantallas.setSelectedIndex(1);
         generarMatrix();
         crearMatriz();
@@ -225,10 +226,7 @@ public class Juego extends javax.swing.JFrame {
         rutas.add("personajes/defensas.txt");
         rutas.add("personajes/super.txt");
         rutas.add("personajes/ataques.txt");
-        leerArchivos();
-        System.out.println(ataques);
-        
-        
+        leerArchivos();     
     }
 
     /**
