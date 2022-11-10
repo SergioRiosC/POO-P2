@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import pc.juego.Juego;
+import static pc.juego.Manager.MA;
 
 /**
  *
@@ -36,7 +37,7 @@ abstract class Zombie extends Thread {
     int nivel;
     int campos;
     int nivelAparicion;
-
+    ManejadorArchivos MA=new ManejadorArchivos();
     public abstract void atacar(int posX, int posY);
 
     public abstract void morir();
@@ -359,6 +360,7 @@ class ZombieMedioAlcance extends Zombie {
         for (Arma arma : ArmaFactory.armasNivel) {
             
             if(arma!=null && arma.posX==posX && arma.posY==posY){
+                System.out.println("ZOMBIE MED ATACANDO");
                 arma.vida=arma.vida-10;
                 if (arma.vida <= 0) {
                     for (int[] p : Manager.posicionesArma) {

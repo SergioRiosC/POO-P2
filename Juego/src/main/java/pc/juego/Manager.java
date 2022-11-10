@@ -19,12 +19,12 @@ public class Manager implements Serializable {
     static ArrayList<Zombie[]> ejercitoZombie = new ArrayList<Zombie[]>();
     static ArrayList<int[]> posicionesZombie =new ArrayList<int[]>();
     static ArrayList<int[]> posicionesArma =new ArrayList<int[]>();
-    ManejadorArchivos MA = new ManejadorArchivos();
+    static ManejadorArchivos MA = new ManejadorArchivos();
     
     
 
     public static void init() {
-
+        nivel=Integer.valueOf(MA.leer("nivel.txt"));
         for (int i = 1; i < nivel; i++) {
             campoEjercitos += 5;
         }
@@ -49,34 +49,17 @@ public class Manager implements Serializable {
     }
     public static void terminarNivel(){
         System.out.println("TERMINAR NIVEL");
-        //Juego.getNivel();
-        for (Zombie[] zombie : ejercitoZombie) {
-            System.out.println("FOR ARMAS");
-            nivel++;
-            if(zombie.length==0){
-                break;
-            }
-                
-            
-        }
-        System.out.println("NIVEL NUEVO: "+nivel); 
-        
-        
         for (Arma arma : ArmaFactory.armasNivel) {
             if(arma!=null){
                 arma.vida=0;
             }
-            
         }
         for (Zombie zombie : ZombieFactory.zombiesNivel) {
             if(zombie!=null){
                 zombie.vida=0;
             }
-            
         }
-        
-                
-        
+        int nivelAct=Integer.valueOf(MA.leer("nivel.txt"));
+        MA.escribir("nivel.txt",String.valueOf(nivelAct+1) );
     }
-    
 }

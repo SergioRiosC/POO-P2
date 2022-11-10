@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.json.JSONObject;
+import static pc.juego.Manager.MA;
         /**
  *
  * @author sebastianqr.2208
@@ -18,7 +19,7 @@ public class Juego extends javax.swing.JFrame {
     int tam = 30;
     int inicio = 10;
     static int tipo = 0;
-    int nivel = 1;
+    int nivel;
     static ArrayList<JButton> botones = new ArrayList<>();
     ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
     ManejadorArchivos manejador=new ManejadorArchivos();
@@ -212,6 +213,9 @@ public class Juego extends javax.swing.JFrame {
     public Juego() {
         initComponents();
         nivel = Integer.valueOf(manejador.leer("nivel.txt"));   
+        
+        Manager.nivel=nivel;
+        System.out.println("NIVEL ACTUAL: "+nivel);
         pantallas.setSelectedIndex(1);
         generarMatrix();
         crearMatriz();
@@ -520,22 +524,20 @@ public class Juego extends javax.swing.JFrame {
         tipo = 1;
         modificarUltimoCambiado(malla);
     }//GEN-LAST:event_mallaActionPerformed
-
+    
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
         int posX = (int) (Math.random() * 23);
         int posY = (int) (Math.random() * 23);
         
         for (JSONObject defensa : defensas) {
-            System.out.println("DEFENSA: " + defensa);
-            if (Manager.nivel == (int) defensa.get("nivel_aparicion")) {
+            if (Integer.valueOf(manejador.leer("nivel.txt")) == (int) defensa.get("nivel_aparicion")) {
                 switch (defensa.get("ataque").toString()) {
                     case "Aereo":
                         
                         Zombie z = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO, posX,posY,"Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z.start();
-                        System.out.println("ZOMBIE AEREO CREADO");
 
                         break;
 
@@ -543,27 +545,20 @@ public class Juego extends javax.swing.JFrame {
                         Zombie z2 = ZombieFactory.getNewZombie(TIPOZOMBIE.CONTACTO,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z2.start();
-                        System.out.println("ZOMBIE CONTACTO CREADO");
                         break;
                     case "Mediano Alcance":
                         Zombie z3 = ZombieFactory.getNewZombie(TIPOZOMBIE.MEDIO_ALCANCE,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z3.start();
-                        System.out.println("ZOMBIE MED CREADO");
                         break;
                     case "Choque":
                         Zombie z4 = ZombieFactory.getNewZombie(TIPOZOMBIE.AEREO,posX,posY, "Z_Aereo", "", (int) defensa.getInt("vida"), (int) defensa.get("golpes_por_segundo"),
                                 5, 1, (int) defensa.get("nivel_aparicion"));
                         z4.start();
-                        System.out.println("ZOMBIE CHOQUE CREADO");
                         break;
-
                 }
             }
         }
-        
-        
-        
     }//GEN-LAST:event_iniciarActionPerformed
 
     private void multipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multipleActionPerformed
@@ -676,16 +671,7 @@ public class Juego extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        int nivel=1;
-        for (Arma[] armas : Manager.ejercitoArma) {
-            if(armas.length==0){
-                break;
-            }else{
-                nivel=13;
-            }
-        }
-        Manager.nivel=nivel;
-        System.out.println("NIVEL ACTUAL: "+nivel);
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -28,7 +28,7 @@ abstract class Arma extends Thread {
 
     public String nombre;
     public String imagen;
-    public int vida = 10;
+    public int vida = 100;
     int posX;
     int posY;
     int ataquePorSegundo;
@@ -86,7 +86,6 @@ class ArmaContacto extends Arma {
 
     @Override
     public void run() {
-
         while (vida > 0) {
             //System.out.println("VIDA CONTACTO: "+vida);
             try {
@@ -96,6 +95,22 @@ class ArmaContacto extends Arma {
                 Logger.getLogger(ArmaContacto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if(vida<=0){
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();
+        }
+    }
+    public JButton buscarBoton(int posX, int posY) {
+        for (JButton boton : botones) {
+
+            if ((boton.getName().split("-")[0]).equals(String.valueOf(posX))
+                    && (boton.getName().split("-")[1]).equals(String.valueOf(posY))) {
+                return boton;
+            }
+
+        }
+        return null;
 
     }
 }
@@ -113,8 +128,8 @@ class ArmaMedianoAlcance extends Arma {
                         || (zombie.posX == posX && zombie.posY == posY + 2) || (zombie.posX == posX && zombie.posY == posY - 2)
                         || (zombie.posX == posX + 2 && zombie.posY == posY + 2) || (zombie.posX == posX - 2 && zombie.posY == posY - 2)
                         || (zombie.posX == posX + 2 && zombie.posY == posY - 2) || (zombie.posX == posX - 2 && zombie.posY == posY + 2)){
-                    System.out.println("MEDIANO ATACANDO");
-                    zombie.vida = zombie.vida - 50;
+                    
+                    zombie.vida = zombie.vida - 10;
                     if (zombie.vida <= 0) {
                         
                         for (int[] p : Manager.posicionesZombie) {
@@ -180,7 +195,7 @@ class ArmaAerea extends Arma {
             if (zombie != null) {
                 if ((zombie.posX == posX && zombie.posY == posY)){
                     
-                    zombie.vida = zombie.vida - 500;
+                    zombie.vida = zombie.vida - 10;
                     if (zombie.vida <= 0) {
                         
                         for (int[] p : Manager.posicionesZombie) {
@@ -295,7 +310,7 @@ class ArmaImpacto extends Arma {
                         || (zombie.posX == posX + 1 && zombie.posY == posY + 1) || (zombie.posX == posX - 1 && zombie.posY == posY - 1)
                         || (zombie.posX == posX + 1 && zombie.posY == posY - 1) || (zombie.posX == posX - 1 && zombie.posY == posY + 1)){
                     
-                    zombie.vida = zombie.vida - 50;
+                    zombie.vida = zombie.vida - 10;
                     if (zombie.vida <= 0) {
                         
                         for (int[] p : Manager.posicionesZombie) {
@@ -322,6 +337,32 @@ class ArmaImpacto extends Arma {
 
     @Override
     public void run() {
+        while (vida > 0) {
+
+            try {
+                sleep(3000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ArmaBloque.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (vida <= 0) {
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();
+        }
+
+    }
+    public JButton buscarBoton(int posX, int posY) {
+        for (JButton boton : botones) {
+
+            if ((boton.getName().split("-")[0]).equals(String.valueOf(posX))
+                    && (boton.getName().split("-")[1]).equals(String.valueOf(posY))) {
+                return boton;
+            }
+
+        }
+        return null;
 
     }
 }
@@ -340,7 +381,7 @@ class ArmaAtaqueMultiple extends Arma {
                         || (zombie.posX == posX + 1 && zombie.posY == posY + 1) || (zombie.posX == posX - 1 && zombie.posY == posY - 1)
                         || (zombie.posX == posX + 1 && zombie.posY == posY - 1) || (zombie.posX == posX - 1 && zombie.posY == posY + 1)){
                     
-                    zombie.vida = zombie.vida - 50;
+                    zombie.vida = zombie.vida - 10;
                     if (zombie.vida <= 0) {
                         
                         for (int[] p : Manager.posicionesZombie) {
@@ -366,6 +407,32 @@ class ArmaAtaqueMultiple extends Arma {
 
     @Override
     public void run() {
+        while (vida > 0) {
+
+            try {
+                sleep(3000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ArmaBloque.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (vida <= 0) {
+           buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
+            interrupt();
+        }
+
+    }
+    public JButton buscarBoton(int posX, int posY) {
+        for (JButton boton : botones) {
+
+            if ((boton.getName().split("-")[0]).equals(String.valueOf(posX))
+                    && (boton.getName().split("-")[1]).equals(String.valueOf(posY))) {
+                return boton;
+            }
+
+        }
+        return null;
 
     }
 }
@@ -395,8 +462,22 @@ class ArmaBloque extends Arma {
         }
 
         if (vida <= 0) {
+            buscarBoton(posX, posY).setBackground(null);
+            buscarBoton(posX, posY).setText(null);
             interrupt();
         }
+
+    }
+    public JButton buscarBoton(int posX, int posY) {
+        for (JButton boton : botones) {
+
+            if ((boton.getName().split("-")[0]).equals(String.valueOf(posX))
+                    && (boton.getName().split("-")[1]).equals(String.valueOf(posY))) {
+                return boton;
+            }
+
+        }
+        return null;
 
     }
 }
