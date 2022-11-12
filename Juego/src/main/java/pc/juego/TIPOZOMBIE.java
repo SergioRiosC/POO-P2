@@ -146,6 +146,7 @@ class ZombieContacto extends Zombie {
         }
         if(posX==12&&posY==12){
             Manager.terminarNivel();
+            buscarBoton(posX, posY).setBackground(Color.pink);
         }
         buscarBoton(posX, posY).setBackground(Color.red);
         buscarBoton(posX, posY).setText("Z");
@@ -265,6 +266,7 @@ class ZombieAereo extends Zombie {
         
         if(posX==12&&posY==12){
             Manager.terminarNivel();
+            buscarBoton(posX, posY).setBackground(Color.pink);
         }
 
         buscarBoton(posX, posY).setBackground(Color.blue);
@@ -445,6 +447,7 @@ class ZombieMedioAlcance extends Zombie {
         }
         if(posX==12&&posY==12){
             Manager.terminarNivel();
+            buscarBoton(posX, posY).setBackground(Color.pink);
         }
         
 

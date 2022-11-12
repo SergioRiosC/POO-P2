@@ -232,6 +232,7 @@ public class Juego extends javax.swing.JFrame {
         rutas.add("personajes/ataques.txt");
         leerArchivos();     //hola xd
         botonCentro = botones.get(312);
+        botonCentro.setBackground(Color.PINK);
         System.out.println(botonCentro.getName());
     }
 
@@ -529,6 +530,7 @@ public class Juego extends javax.swing.JFrame {
     
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
         // TODO add your handling code here:
+        botonCentro.setBackground(Color.PINK);
         int posX = (int) (Math.random() * 23);
         int posY = (int) (Math.random() * 23);
         
