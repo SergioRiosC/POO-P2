@@ -20,6 +20,7 @@ public class Juego extends javax.swing.JFrame {
     int inicio = 10;
     static int tipo = 0;
     int nivel;
+    JButton botonCentro = null;
     static ArrayList<JButton> botones = new ArrayList<>();
     ArrayList<ArrayList<Integer>> matriz = new ArrayList<>();
     ManejadorArchivos manejador=new ManejadorArchivos();
@@ -230,6 +231,8 @@ public class Juego extends javax.swing.JFrame {
         rutas.add("personajes/super.txt");
         rutas.add("personajes/ataques.txt");
         leerArchivos();     //hola xd
+        botonCentro = botones.get(312);
+        System.out.println(botonCentro.getName());
     }
 
     /**
