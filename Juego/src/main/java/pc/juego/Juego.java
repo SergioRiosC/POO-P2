@@ -216,7 +216,6 @@ public class Juego extends javax.swing.JFrame {
         
         Manager.nivel=nivel;
         System.out.println("NIVEL ACTUAL: "+nivel);
-        pantallas.setSelectedIndex(1);
         generarMatrix();
         crearMatriz();
         ultimoModificado = jButton1;
@@ -230,7 +229,7 @@ public class Juego extends javax.swing.JFrame {
         rutas.add("personajes/defensas.txt");
         rutas.add("personajes/super.txt");
         rutas.add("personajes/ataques.txt");
-        leerArchivos();     
+        leerArchivos();     //hola xd
     }
 
     /**
@@ -343,7 +342,7 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(15, 15, 15)
                 .addComponent(entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 446, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 476, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(14, 14, 14))
         );
@@ -426,7 +425,7 @@ public class Juego extends javax.swing.JFrame {
                 .addComponent(aereo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(multiple, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         pantallas.addTab("tab2", principal);
@@ -496,14 +495,14 @@ public class Juego extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(53, 53, 53)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 416, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 446, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(20, 20, 20))
         );
 
         pantallas.addTab("tab3", jPanel2);
 
-        getContentPane().add(pantallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 800));
+        getContentPane().add(pantallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 900, 830));
 
         pack();
         setLocationRelativeTo(null);
